@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Blaze Local AI Coding Agent | 100% Offline AI IDE & Autonomous Programmer</title>
+  <meta name="title" content="Blaze Local AI Coding Agent | 100% Offline AI IDE & Autonomous Programmer">
+  <meta name="description" content="Production-quality native Windows desktop IDE powered by local GGUF LLMs (Qwen 2.5 Coder, Llama 3, Mistral) and Autonomous MCP coding agent with zero cloud dependency. Developed by Fahim Magsi.">
+  <meta name="keywords" content="Local AI IDE, Autonomous Coding Agent, Offline LLM, GGUF Models, Rust Desktop IDE, Model Context Protocol, MCP, Windows AI IDE, Fahim Magsi, Blaze Local AI, LocalAI">
+  <meta name="author" content="Fahim Magsi">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fahimmagsi.github.io/blaze-local-ai-coding-agent/">
+  <meta property="og:title" content="Blaze Local AI Coding Agent - 100% Offline AI IDE">
+  <meta property="og:description" content="Native Windows IDE with local GGUF LLM inference, autonomous MCP agent loop, and interactive diff reviewer. Developed by Fahim Magsi.">
+  <meta property="og:image" content="app_icon.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:title" content="Blaze Local AI Coding Agent">
+  <meta property="twitter:description" content="100% Offline Local AI IDE & Autonomous Coding Agent for Windows. Pure Rust + egui + GGUF inference.">
+  <meta property="twitter:image" content="app_icon.png">
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Blaze Local AI Coding Agent",
+    "operatingSystem": "Windows 10, Windows 11",
+    "applicationCategory": "DeveloperApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Fahim Magsi"
+    },
+    "description": "Production-quality Windows desktop IDE with local LLM (GGUF) and autonomous MCP coding agent with zero cloud dependency."
+  }
+  </script>
+
+  <!-- Google Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0d1117;
+      --bg-card: #161b22;
+      --bg-card-hover: #1f242c;
+      --blaze-orange: #f97316;
+      --blaze-amber: #fbbf24;
+      --blaze-red: #ef4444;
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --border-color: #30363d;
+      --accent-cyan: #38bdf8;
+      --accent-green: #4ec9b0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Glow Background Accents */
+    .glow-top {
+      position: absolute;
+      top: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(249, 115, 22, 0.18) 0%, rgba(251, 191, 36, 0.05) 50%, transparent 80%);
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header & Navigation */
+    header {
+      padding: 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #241410, #381a10);
+      border: 1.5px solid var(--blaze-orange);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 0 15px rgba(249, 115, 22, 0.3);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 80px 0 60px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      background: rgba(249, 115, 22, 0.12);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      color: var(--blaze-amber);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #ff8c00 0%, #fbbf24 50%, #f97316 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      margin: 0 auto 36px;
+    }
+
+    .developer-tag {
+      font-weight: 600;
+      color: var(--accent-cyan);
+    }
+
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blaze-orange), #ea580c);
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(249, 115, 22, 0.6);
+      background: linear-gradient(135deg, #fb923c, #f97316);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: #555c68;
+    }
+
+    /* Key Specs Bar */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 70px;
+    }
+
+    .spec-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: left;
+    }
+
+    .spec-title {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .spec-val {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Features Grid */
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-header h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 30px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--blaze-orange);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Code & Model Guide */
+    .guide-box {
+      background: #090d13;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 70px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: #c9d1d9;
+      overflow-x: auto;
+    }
+
+    .guide-box span.comment { color: #8b949e; }
+    .guide-box span.cmd { color: var(--blaze-amber); font-weight: 600; }
+    .guide-box span.hl { color: var(--accent-cyan); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.4rem; }
+      .hero-subtitle { font-size: 1.05rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-top"></div>
+
+  <div class="container">
+    <!-- Navigation Bar -->
+    <header>
+      <a href="#" class="brand">
+        <div class="brand-icon">🔥</div>
+        <span>Blaze Local AI</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#models">Supported Models</a>
+        <a href="#requirements">Requirements</a>
+        <a href="#download" class="btn btn-primary" style="padding: 8px 18px; font-size: 0.9rem;">Download v0.1.0</a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="badge-pill">
+        <span>⚡ 100% Offline AI Coding Agent</span>
+      </div>
+      <h1>
+        Code Smarter & Autonomously with<br>
+        <span class="gradient-text">Blaze Local AI Coding Agent</span>
+      </h1>
+      <p class="hero-subtitle">
+        A production-quality Windows desktop IDE powered by pure Rust, local GGUF LLMs, and autonomous Model Context Protocol (MCP) tooling. Zero cloud lock-in. Zero data leakage.
+      </p>
+
+      <div class="cta-group" id="download">
+        <a href="https://github.com/fahimmagsi/blaze-local-ai-coding-agent/releases/latest" class="btn btn-primary">
+          <span>⬇ Download for Windows (x64)</span>
+        </a>
+        <a href="#features" class="btn btn-secondary">
+          <span>Explore Capabilities →</span>
+        </a>
+      </div>
+
+      <p style="color: var(--text-muted); font-size: 0.9rem;">
+        Developed & Owned by <span class="developer-tag">Fahim Magsi</span> • Windows 10/11 64-bit • Native Rust Binary
+      </p>
+    </section>
+
+    <!-- Key Technical Specs -->
+    <div class="specs-grid">
+      <div class="spec-item">
+        <div class="spec-title">Inference Engine</div>
+        <div class="spec-val">100% Offline GGUF</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-title">Autonomous Loop</div>
+        <div class="spec-val">Plan ➔ Edit ➔ Test</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-title">Integration Standard</div>
+        <div class="spec-val">MCP JSON-RPC 2.0</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-title">Platform & Architecture</div>
+        <div class="spec-val">Pure Rust + eframe/egui</div>
+      </div>
+    </div>
+
+    <!-- Core Features Section -->
+    <section id="features">
+      <div class="section-header">
+        <h2>Engineered for High-Performance Developers</h2>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">
+          Everything you need for autonomous, private software engineering right on your Windows PC.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>Local LLM Inference</h3>
+          <p>Load any quantized GGUF model (Q4, Q5, Q8) from Qwen 2.5 Coder, Llama 3, Mistral, or Phi-3. Token streaming with zero latency and zero cloud costs.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔥</div>
+          <h3>Autonomous Agent Loop</h3>
+          <p>Toggle <strong>Auto Mode</strong> and let Blaze Agent plan multi-step implementations, write code, run workspace tools, and verify unit tests automatically.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Model Context Protocol (MCP)</h3>
+          <p>Full JSON-RPC 2.0 support. Connect custom external stdio tools, run isolated sandboxed shell tasks, and read project context dynamically.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Interactive Diff Reviewer</h3>
+          <p>Review every AI-generated change line-by-line before applying. Hunk-level acceptance and clean rollback ensure you always remain in full control.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📝</div>
+          <h3>Full-Featured Code Editor</h3>
+          <p>Multi-tab buffer with Syntect syntax highlighting, line gutter selection, multi-step undo/redo (Ctrl+Z/Ctrl+Y), regex search/replace, and auto-save.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>100% Privacy & Security</h3>
+          <p>Your codebase never leaves your hard drive. No telemetry, no cloud logging, and optional Firebase Google OAuth integration for team accounts.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recommended Models Guide -->
+    <section id="models">
+      <div class="section-header">
+        <h2>Recommended GGUF Models</h2>
+        <p style="color: var(--text-muted);">Optimal quantized models for local development with Blaze Local AI:</p>
+      </div>
+
+      <div class="guide-box">
+<span class="comment"># 1. Best Overall Coding Performance (High Accuracy & Context)</span>
+<span class="cmd">Model:</span> <span class="hl">Qwen2.5-Coder-7B-Instruct (Q4_K_M)</span> (~4.5 GB RAM)
+
+<span class="comment"># 2. Strong Reasoning & Architectural Guidance</span>
+<span class="cmd">Model:</span> <span class="hl">Llama-3-8B-Instruct (Q4_K_M)</span> (~4.9 GB RAM)
+
+<span class="comment"># 3. Fast & Lightweight for Laptops / 8GB RAM</span>
+<span class="cmd">Model:</span> <span class="hl">Phi-3-mini-4k-instruct (Q4_K_M)</span> (~2.3 GB RAM)
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>© 2026 <strong>Blaze Local AI Coding Agent</strong>. Developed & Owned by <strong>Fahim Magsi</strong>. All Rights Reserved.</p>
+      <p style="margin-top: 8px; font-size: 0.82rem;">Commercial Edition • Native Windows x64</p>
+    </footer>
+  </div>
+</body>
+</html>

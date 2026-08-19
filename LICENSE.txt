@@ -1,0 +1,62 @@
+================================================================================
+              BLAZE LOCAL AI CODING AGENT - END USER LICENSE AGREEMENT
+================================================================================
+
+PRODUCT: Blaze Local AI Coding Agent
+VERSION: 0.1.0 (Windows Native Edition)
+DEVELOPER & COPYRIGHT OWNER: Fahim Magsi
+ALL RIGHTS RESERVED (PROPRIETARY COMMERCIAL SOFTWARE)
+
+PLEASE READ THIS END USER LICENSE AGREEMENT ("EULA") CAREFULLY BEFORE INSTALLING 
+OR USING THIS SOFTWARE. BY INSTALLING, COPYING, OR USING BLAZE LOCAL AI CODING 
+AGENT, YOU AGREE TO BE BOUND BY THE TERMS AND CONDITIONS OF THIS AGREEMENT.
+
+--------------------------------------------------------------------------------
+1. GRANT OF LICENSE
+--------------------------------------------------------------------------------
+Fahim Magsi grants you a non-exclusive, non-transferable, commercial license 
+to install and use Blaze Local AI Coding Agent on your authorized Windows computer(s) 
+in accordance with the purchased license tier.
+
+--------------------------------------------------------------------------------
+2. OWNERSHIP & INTELLECTUAL PROPERTY
+--------------------------------------------------------------------------------
+Blaze Local AI Coding Agent, including its source code, compiled binaries, 
+user interface designs, autonomous agent algorithms, and branding, is the sole 
+and exclusive intellectual property of Fahim Magsi. This software is licensed, 
+not sold.
+
+--------------------------------------------------------------------------------
+3. RESTRICTIONS
+--------------------------------------------------------------------------------
+You may NOT:
+a) Decompile, reverse engineer, disassemble, or attempt to derive the source code.
+b) Sub-license, rent, lease, resell, redistribute, or publicly host the software 
+   binaries without prior written authorization from Fahim Magsi.
+c) Modify, adapt, or create derivative works based on this software.
+d) Remove or alter any proprietary notices, copyright labels, or logos.
+
+--------------------------------------------------------------------------------
+4. PRIVACY & LOCAL OFFLINE OPERATION
+--------------------------------------------------------------------------------
+Blaze Local AI Coding Agent operates 100% locally on your computer when using 
+local GGUF models. Your local code, project files, and chat messages never leave 
+your machine without your explicit configuration (such as optional OpenRouter 
+online fallback).
+
+--------------------------------------------------------------------------------
+5. DISCLAIMER OF WARRANTY & LIMITATION OF LIABILITY
+--------------------------------------------------------------------------------
+This software is provided "AS IS", without warranty of any kind, express or 
+implied. In no event shall the author, Fahim Magsi, be liable for any direct, 
+indirect, incidental, special, exemplary, or consequential damages.
+
+--------------------------------------------------------------------------------
+6. CONTACT & COMMERCIAL SUPPORT
+--------------------------------------------------------------------------------
+For enterprise licensing, commercial purchase inquiries, and technical support:
+Developer: Fahim Magsi
+Website / Repository: https://github.com/fahimmagsi
+
+Copyright (c) 2026 Fahim Magsi. All Rights Reserved.
+================================================================================
